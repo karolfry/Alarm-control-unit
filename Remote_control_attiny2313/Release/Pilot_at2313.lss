@@ -1,0 +1,210 @@
+
+Pilot_at2313.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000014a  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  0000014a  000001de  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000002  00800060  00800060  000001de  2**0
+                  ALLOC
+  3 .stab         000006b4  00000000  00000000  000001e0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      00000097  00000000  00000000  00000894  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .comment      0000002f  00000000  00000000  0000092b  2**0
+                  CONTENTS, READONLY
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	1f c0       	rjmp	.+62     	; 0x42 <__bad_interrupt>
+   4:	1e c0       	rjmp	.+60     	; 0x42 <__bad_interrupt>
+   6:	1d c0       	rjmp	.+58     	; 0x42 <__bad_interrupt>
+   8:	1c c0       	rjmp	.+56     	; 0x42 <__bad_interrupt>
+   a:	1b c0       	rjmp	.+54     	; 0x42 <__bad_interrupt>
+   c:	1a c0       	rjmp	.+52     	; 0x42 <__bad_interrupt>
+   e:	19 c0       	rjmp	.+50     	; 0x42 <__bad_interrupt>
+  10:	18 c0       	rjmp	.+48     	; 0x42 <__bad_interrupt>
+  12:	17 c0       	rjmp	.+46     	; 0x42 <__bad_interrupt>
+  14:	16 c0       	rjmp	.+44     	; 0x42 <__bad_interrupt>
+  16:	15 c0       	rjmp	.+42     	; 0x42 <__bad_interrupt>
+  18:	14 c0       	rjmp	.+40     	; 0x42 <__bad_interrupt>
+  1a:	13 c0       	rjmp	.+38     	; 0x42 <__bad_interrupt>
+  1c:	12 c0       	rjmp	.+36     	; 0x42 <__bad_interrupt>
+  1e:	11 c0       	rjmp	.+34     	; 0x42 <__bad_interrupt>
+  20:	10 c0       	rjmp	.+32     	; 0x42 <__bad_interrupt>
+  22:	0f c0       	rjmp	.+30     	; 0x42 <__bad_interrupt>
+  24:	0e c0       	rjmp	.+28     	; 0x42 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf ed       	ldi	r28, 0xDF	; 223
+  2c:	cd bf       	out	0x3d, r28	; 61
+
+0000002e <__do_clear_bss>:
+  2e:	20 e0       	ldi	r18, 0x00	; 0
+  30:	a0 e6       	ldi	r26, 0x60	; 96
+  32:	b0 e0       	ldi	r27, 0x00	; 0
+  34:	01 c0       	rjmp	.+2      	; 0x38 <.do_clear_bss_start>
+
+00000036 <.do_clear_bss_loop>:
+  36:	1d 92       	st	X+, r1
+
+00000038 <.do_clear_bss_start>:
+  38:	a2 36       	cpi	r26, 0x62	; 98
+  3a:	b2 07       	cpc	r27, r18
+  3c:	e1 f7       	brne	.-8      	; 0x36 <.do_clear_bss_loop>
+  3e:	6d d0       	rcall	.+218    	; 0x11a <main>
+  40:	82 c0       	rjmp	.+260    	; 0x146 <_exit>
+
+00000042 <__bad_interrupt>:
+  42:	de cf       	rjmp	.-68     	; 0x0 <__vectors>
+
+00000044 <send_man_jeden>:
+  44:	96 9a       	sbi	0x12, 6	; 18
+  46:	86 ea       	ldi	r24, 0xA6	; 166
+  48:	8a 95       	dec	r24
+  4a:	f1 f7       	brne	.-4      	; 0x48 <send_man_jeden+0x4>
+  4c:	00 c0       	rjmp	.+0      	; 0x4e <send_man_jeden+0xa>
+  4e:	96 98       	cbi	0x12, 6	; 18
+  50:	86 ea       	ldi	r24, 0xA6	; 166
+  52:	8a 95       	dec	r24
+  54:	f1 f7       	brne	.-4      	; 0x52 <send_man_jeden+0xe>
+  56:	00 c0       	rjmp	.+0      	; 0x58 <send_man_jeden+0x14>
+  58:	08 95       	ret
+
+0000005a <send_man_zero>:
+  5a:	96 98       	cbi	0x12, 6	; 18
+  5c:	86 ea       	ldi	r24, 0xA6	; 166
+  5e:	8a 95       	dec	r24
+  60:	f1 f7       	brne	.-4      	; 0x5e <send_man_zero+0x4>
+  62:	00 c0       	rjmp	.+0      	; 0x64 <send_man_zero+0xa>
+  64:	96 9a       	sbi	0x12, 6	; 18
+  66:	86 ea       	ldi	r24, 0xA6	; 166
+  68:	8a 95       	dec	r24
+  6a:	f1 f7       	brne	.-4      	; 0x68 <send_man_zero+0xe>
+  6c:	00 c0       	rjmp	.+0      	; 0x6e <send_man_zero+0x14>
+  6e:	08 95       	ret
+
+00000070 <man_sync>:
+  70:	1f 93       	push	r17
+  72:	cf 93       	push	r28
+  74:	df 93       	push	r29
+  76:	1f 92       	push	r1
+  78:	cd b7       	in	r28, 0x3d	; 61
+  7a:	dd 27       	eor	r29, r29
+  7c:	81 11       	cpse	r24, r1
+  7e:	01 c0       	rjmp	.+2      	; 0x82 <man_sync+0x12>
+  80:	80 e5       	ldi	r24, 0x50	; 80
+  82:	10 e0       	ldi	r17, 0x00	; 0
+  84:	89 83       	std	Y+1, r24	; 0x01
+  86:	e9 df       	rcall	.-46     	; 0x5a <send_man_zero>
+  88:	1f 5f       	subi	r17, 0xFF	; 255
+  8a:	89 81       	ldd	r24, Y+1	; 0x01
+  8c:	18 13       	cpse	r17, r24
+  8e:	fa cf       	rjmp	.-12     	; 0x84 <man_sync+0x14>
+  90:	96 9a       	sbi	0x12, 6	; 18
+  92:	86 e7       	ldi	r24, 0x76	; 118
+  94:	91 e0       	ldi	r25, 0x01	; 1
+  96:	01 97       	sbiw	r24, 0x01	; 1
+  98:	f1 f7       	brne	.-4      	; 0x96 <man_sync+0x26>
+  9a:	00 c0       	rjmp	.+0      	; 0x9c <man_sync+0x2c>
+  9c:	00 00       	nop
+  9e:	0f 90       	pop	r0
+  a0:	df 91       	pop	r29
+  a2:	cf 91       	pop	r28
+  a4:	1f 91       	pop	r17
+  a6:	08 95       	ret
+
+000000a8 <man_send_byte>:
+  a8:	ff 92       	push	r15
+  aa:	0f 93       	push	r16
+  ac:	1f 93       	push	r17
+  ae:	cf 93       	push	r28
+  b0:	df 93       	push	r29
+  b2:	c8 2f       	mov	r28, r24
+  b4:	f6 2e       	mov	r15, r22
+  b6:	d8 2f       	mov	r29, r24
+  b8:	d0 95       	com	r29
+  ba:	16 e0       	ldi	r17, 0x06	; 6
+  bc:	04 ee       	ldi	r16, 0xE4	; 228
+  be:	07 fd       	sbrc	r16, 7
+  c0:	02 c0       	rjmp	.+4      	; 0xc6 <man_send_byte+0x1e>
+  c2:	cb df       	rcall	.-106    	; 0x5a <send_man_zero>
+  c4:	01 c0       	rjmp	.+2      	; 0xc8 <man_send_byte+0x20>
+  c6:	be df       	rcall	.-132    	; 0x44 <send_man_jeden>
+  c8:	00 0f       	add	r16, r16
+  ca:	11 50       	subi	r17, 0x01	; 1
+  cc:	c1 f7       	brne	.-16     	; 0xbe <man_send_byte+0x16>
+  ce:	f1 10       	cpse	r15, r1
+  d0:	03 c0       	rjmp	.+6      	; 0xd8 <man_send_byte+0x30>
+  d2:	b8 df       	rcall	.-144    	; 0x44 <send_man_jeden>
+  d4:	c2 df       	rcall	.-124    	; 0x5a <send_man_zero>
+  d6:	02 c0       	rjmp	.+4      	; 0xdc <man_send_byte+0x34>
+  d8:	c0 df       	rcall	.-128    	; 0x5a <send_man_zero>
+  da:	b4 df       	rcall	.-152    	; 0x44 <send_man_jeden>
+  dc:	18 e0       	ldi	r17, 0x08	; 8
+  de:	c7 fd       	sbrc	r28, 7
+  e0:	02 c0       	rjmp	.+4      	; 0xe6 <__stack+0x7>
+  e2:	bb df       	rcall	.-138    	; 0x5a <send_man_zero>
+  e4:	01 c0       	rjmp	.+2      	; 0xe8 <__stack+0x9>
+  e6:	ae df       	rcall	.-164    	; 0x44 <send_man_jeden>
+  e8:	cc 0f       	add	r28, r28
+  ea:	11 50       	subi	r17, 0x01	; 1
+  ec:	c1 f7       	brne	.-16     	; 0xde <man_send_byte+0x36>
+  ee:	c8 e0       	ldi	r28, 0x08	; 8
+  f0:	d7 fd       	sbrc	r29, 7
+  f2:	02 c0       	rjmp	.+4      	; 0xf8 <__stack+0x19>
+  f4:	b2 df       	rcall	.-156    	; 0x5a <send_man_zero>
+  f6:	01 c0       	rjmp	.+2      	; 0xfa <__stack+0x1b>
+  f8:	a5 df       	rcall	.-182    	; 0x44 <send_man_jeden>
+  fa:	dd 0f       	add	r29, r29
+  fc:	c1 50       	subi	r28, 0x01	; 1
+  fe:	c1 f7       	brne	.-16     	; 0xf0 <__stack+0x11>
+ 100:	96 9a       	sbi	0x12, 6	; 18
+ 102:	86 e7       	ldi	r24, 0x76	; 118
+ 104:	91 e0       	ldi	r25, 0x01	; 1
+ 106:	01 97       	sbiw	r24, 0x01	; 1
+ 108:	f1 f7       	brne	.-4      	; 0x106 <__stack+0x27>
+ 10a:	00 c0       	rjmp	.+0      	; 0x10c <__stack+0x2d>
+ 10c:	00 00       	nop
+ 10e:	df 91       	pop	r29
+ 110:	cf 91       	pop	r28
+ 112:	1f 91       	pop	r17
+ 114:	0f 91       	pop	r16
+ 116:	ff 90       	pop	r15
+ 118:	08 95       	ret
+
+0000011a <main>:
+ 11a:	8d 9a       	sbi	0x11, 5	; 17
+ 11c:	8a 98       	cbi	0x11, 2	; 17
+ 11e:	92 9a       	sbi	0x12, 2	; 18
+ 120:	8e 9a       	sbi	0x11, 6	; 17
+ 122:	80 e0       	ldi	r24, 0x00	; 0
+ 124:	a5 df       	rcall	.-182    	; 0x70 <man_sync>
+ 126:	96 9a       	sbi	0x12, 6	; 18
+ 128:	c0 e2       	ldi	r28, 0x20	; 32
+ 12a:	82 99       	sbic	0x10, 2	; 16
+ 12c:	06 c0       	rjmp	.+12     	; 0x13a <main+0x20>
+ 12e:	82 b3       	in	r24, 0x12	; 18
+ 130:	8c 27       	eor	r24, r28
+ 132:	82 bb       	out	0x12, r24	; 18
+ 134:	61 e0       	ldi	r22, 0x01	; 1
+ 136:	81 e0       	ldi	r24, 0x01	; 1
+ 138:	03 c0       	rjmp	.+6      	; 0x140 <main+0x26>
+ 13a:	95 98       	cbi	0x12, 5	; 18
+ 13c:	61 e0       	ldi	r22, 0x01	; 1
+ 13e:	82 e0       	ldi	r24, 0x02	; 2
+ 140:	b3 df       	rcall	.-154    	; 0xa8 <man_send_byte>
+ 142:	96 98       	cbi	0x12, 6	; 18
+ 144:	f2 cf       	rjmp	.-28     	; 0x12a <main+0x10>
+
+00000146 <_exit>:
+ 146:	f8 94       	cli
+
+00000148 <__stop_program>:
+ 148:	ff cf       	rjmp	.-2      	; 0x148 <__stop_program>
